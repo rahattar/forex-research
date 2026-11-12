@@ -152,7 +152,7 @@ Read sections 1 to 8 first. This section replaces section 7 as the current state
 
 ### 9.2 Task 15: is direction predictable by a fitted model? (handoff/prereg_predictability.md)
 
-Status: results as reported by Codex. Not verified against files (section 9.5).
+Status: results as reported by Codex; files in the repo, not yet verified (section 9.5).
 
 - Two models forecast the next 1h, 4h and 24h move of each pair: ridge regression per pair (M1)
   and gradient-boosted trees pooled over pairs (M2). 42 inputs: the pair's own history, the
@@ -230,17 +230,17 @@ Reading
 
 ### 9.5 State of the files
 
-- At the time of this commit the code and results of task 15 and the lab exist only on the
-  owner's Mac (src/predict*.py, scripts/run_predict.py, tests/test_predict.py,
-  results/predict_*, src/lab_*.py, scripts/lab.py, tests/test_lab.py, results/lab/, ideas/, and
-  the root copies of the specifications). When they are pushed, the root copies are canonical.
-- handoff/ holds what Claude wrote and what Codex reported: the pre-registrations, the lab
-  specification, the three Codex prompts, the two simulation scripts, the seven idea files, and
-  reports_as_pasted/ (task 15 report and the first lab runs, as pasted into the chat).
+- Commit 12aef37 holds the task 15 and lab code, tests and results, ideas/, and the root copies
+  of lab_spec.md and prereg_predictability.md. The root copies are canonical; handoff/ keeps
+  what Claude wrote and what Codex reported, including prereg_month_end.md (only copy) and the
+  task 16 prompt.
+- Not in the repo: raw data, cache/, and the lab trades.csv files (ignored for size). The lab
+  scorecards can be checked against the code and reports, not recomputed from trades.
 - The task 14 files (vol_target*) in the owner's forex folder belong to stock-research.
-- Verification still to do once the files are pushed: recompute task 15 from
-  results/predict_weekly.csv and predict_forecasts_24h.csv; read src/predict.py and the lab
-  code for lookahead; recompute the lab scorecards from the trades files.
+- Working folders on the owner's Mac: Projects/forex (data, Codex runs; not a git repo) and
+  Projects/forex-research (the clone; commit and push from here after copying files over).
+- Verification still to do: recompute task 15 from results/predict_weekly.csv and
+  predict_forecasts_24h.csv; read src/predict.py and the lab code for lookahead.
 
 ### 9.6 Next steps, in the order last agreed or proposed
 
