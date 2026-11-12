@@ -1,0 +1,15 @@
+name = "02_break_prev_day"
+description = "Idea 1 with the previous day's low and high as the levels."
+max_hold_hours = 48
+[entry]
+type = "break"
+direction = "with"
+sides = "both"
+level = { type = "prev_day" }
+[stop]
+type = "vol"
+multiple = 1.0
+hours = 4
+[target]
+type = "r"
+multiple = 1.0

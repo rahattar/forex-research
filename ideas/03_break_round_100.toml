@@ -1,0 +1,15 @@
+name = "03_break_round_100"
+description = "Idea 1 with round numbers every 100 pips as the levels."
+max_hold_hours = 48
+[entry]
+type = "break"
+direction = "with"
+sides = "both"
+level = { type = "round", step_pips = 100 }
+[stop]
+type = "vol"
+multiple = 1.0
+hours = 4
+[target]
+type = "r"
+multiple = 1.0

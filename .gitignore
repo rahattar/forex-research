@@ -10,3 +10,7 @@ data/fred/*.csv
 results/fresh_signal_trades.csv
 results/multi_asset_returns.csv
 .DS_Store
+cache/
+data/fund/
+data/fred/vixcls.csv
+results/lab/*/trades.csv

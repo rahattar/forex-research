@@ -1,0 +1,26 @@
+name = "07_crazy_green_lights"
+description = "Idea 3: the crazy idea with two extra green lights: the 4h trend must agree and the cost must be at most 10 percent of the risk."
+max_hold_hours = 48
+[entry]
+type = "trigger"
+sides = "both"
+[bias]
+type = "trend"
+timeframe = "1h"
+fast = 20
+slow = 50
+[[lights]]
+type = "trend_agree"
+timeframe = "4h"
+fast = 20
+slow = 50
+[[lights]]
+type = "cost"
+max_cost_r = 0.10
+[stop]
+type = "level"
+buffer = 0.1
+level = { type = "swing", timeframe = "1h", k = 3 }
+[target]
+type = "r"
+multiple = 2.5

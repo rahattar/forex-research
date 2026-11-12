@@ -1,0 +1,21 @@
+name = "05_crazy_breakeven"
+description = "Idea 2: the crazy idea with a mechanical move of the stop to break-even after 1R."
+max_hold_hours = 48
+[entry]
+type = "trigger"
+sides = "both"
+[bias]
+type = "trend"
+timeframe = "1h"
+fast = 20
+slow = 50
+[stop]
+type = "level"
+buffer = 0.1
+level = { type = "swing", timeframe = "1h", k = 3 }
+[target]
+type = "r"
+multiple = 2.5
+[[manage]]
+type = "breakeven"
+at_r = 1.0

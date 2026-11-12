@@ -1,0 +1,78 @@
+Idea: 05_crazy_breakeven
+Description: Idea 2: the crazy idea with a mechanical move of the stop to break-even after 1R.
+SHA256: 22596dbcb74976c93e4d2f0ada765a5b11866f56a8bfd5507f77d7c0865e31fa
+Period: lab [2010-01-01T00:00:00+00:00, 2020-01-01T00:00:00+00:00)
+Results from the lab are not claims.
+
+Counts by pair
+pair       signals   skipped    trades trades/year
+eurusd      110925    107802      3123     312.343
+gbpusd      112239    108995      3244     324.444
+usdjpy      110705    107564      3141     314.143
+audusd      114874    111848      3026     302.641
+usdcad      115014    112101      2913     291.340
+usdchf      112452    109397      3055     305.542
+nzdusd      115028    112098      2930     293.040
+eurjpy      110466    107295      3171     317.143
+gbpjpy      109779    106719      3060     306.042
+eurgbp      106393    103430      2963     296.341
+all        1117875   1087249     30626    3063.019
+
+Skipped by reason and pair
+reason                              eurusd    gbpusd    usdjpy    audusd    usdcad    usdchf    nzdusd    eurjpy    gbpjpy    eurgbp       all
+bias                                  6198      6310      5893      5964      5895      6312      5992      6251      6059      6010     60884
+friday                                 147       184       156       119       253       171       208       161       114       157      1670
+pair busy                            99338    100454     99524    103625    104070    100739    103822     98734     98553     95153   1004012
+stop too close                         158       185       186       243       323       343       348       230       280       336      2632
+stop unavailable                       133       179       157       177       164       154       172       151       170       158      1615
+stop wrong side                       1828      1683      1648      1720      1396      1678      1556      1768      1543      1616     16436
+
+Strategy
+trades=30626 mean_r=-0.111032 [-0.127181, -0.094423] weekly_t=-13.0253
+win_rate=0.299549 mean_win=1.268249 mean_loss=-0.700884 payoff=1.809497 skewness=1.214488
+median_hold_hours=15.7500 longest_losing_streak=40 mean_cost_r=0.108341
+Exit reasons
+stop           n=  18080 share=0.590348 mean_r=-0.770245
+target         n=   2925 share=0.095507 mean_r=2.494789
+time           n=   9606 share=0.313655 mean_r=0.335668
+end_of_split   n=     15 share=0.000490 mean_r=0.258423
+
+Mirror
+mean_r_mirror=-0.080295 d=-0.015368 [-0.029178, -0.001191] weekly_t_d=-2.1656 coin=-0.095664
+
+Random baseline (independent trades; no bias or trend_agree)
+seed requested achieved skipped_draws     mean_r   win_rate
+   0     30626    30626          8121  -0.082874   0.286750
+   1     30626    30626          8336  -0.088971   0.283387
+   2     30626    30626          8301  -0.078704   0.287207
+   3     30626    30626          8375  -0.081566   0.283550
+   4     30626    30626          8351  -0.080823   0.284072
+mean over seeds: mean_r=-0.082588 win_rate=0.284993
+
+Breakdown by pair
+pair          n      mean_r           d
+eurusd     3123   -0.090021   -0.009551
+gbpusd     3244   -0.103426   -0.036250
+usdjpy     3141   -0.107051   -0.018250
+audusd     3026   -0.109734   -0.012337
+usdcad     2913   -0.136531   -0.024791
+usdchf     3055   -0.120928   -0.010345
+nzdusd     2930   -0.123261   -0.023276
+eurjpy     3171   -0.085928   -0.009498
+gbpjpy     3060   -0.072427    0.010962
+eurgbp     2963   -0.166421   -0.020249
+
+Breakdown by entry year
+year          n      mean_r           d
+2010       2988   -0.092530   -0.024257
+2011       3074   -0.059114    0.014516
+2012       3092   -0.115182   -0.015856
+2013       3085   -0.129174   -0.032556
+2014       3076   -0.141049   -0.037243
+2015       3070   -0.108311   -0.018821
+2016       3137   -0.096071   -0.003694
+2017       3097   -0.138444   -0.033774
+2018       3101   -0.129163   -0.016130
+2019       2906   -0.099990    0.015554
+
+direction skill d = -0.015368 (t = -2.1656); exits and costs alone give -0.082588

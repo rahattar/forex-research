@@ -1,0 +1,75 @@
+Idea: 03_break_round_100
+Description: Idea 1 with round numbers every 100 pips as the levels.
+SHA256: 565dc3d3657c9f6e792071c007d7086e3a9ff210a706884b271619f5ee3c1eb8
+Period: lab [2010-01-01T00:00:00+00:00, 2020-01-01T00:00:00+00:00)
+Results from the lab are not claims.
+
+Counts by pair
+pair       signals   skipped    trades trades/year
+eurusd       10530      7326      3204     320.444
+gbpusd       11749      8111      3638     363.850
+usdjpy        8237      5627      2610     261.036
+audusd        9213      6481      2732     273.237
+usdcad        9154      6472      2682     268.237
+usdchf        8402      5924      2478     247.834
+nzdusd        8913      6377      2536     253.635
+eurjpy       13128      9353      3775     377.552
+gbpjpy       16871     12189      4682     468.264
+eurgbp        6275      4347      1928     192.826
+all         102472     72207     30265    3026.914
+
+Skipped by reason and pair
+reason                              eurusd    gbpusd    usdjpy    audusd    usdcad    usdchf    nzdusd    eurjpy    gbpjpy    eurgbp       all
+friday                                  35        42        30        17        48        21        18        35        41        21       308
+pair busy                             7210      7987      5561      6401      6372      5864      6300      9267     12068      4293     71323
+stop unavailable                        81        82        36        63        52        39        59        51        80        33       576
+
+Strategy
+trades=30265 mean_r=-0.064523 [-0.077758, -0.051539] weekly_t=-9.7096
+win_rate=0.469156 mean_win=0.977555 mean_loss=-0.985503 payoff=0.991936 skewness=0.097725
+median_hold_hours=3.2500 longest_losing_streak=18 mean_cost_r=0.088687
+Exit reasons
+stop           n=  15548 share=0.513729 mean_r=-1.006114
+target         n=  13752 share=0.454386 mean_r=0.997936
+time           n=    964 share=0.031852 mean_r=-0.034130
+end_of_split   n=      1 share=0.000033 mean_r=-0.434201
+
+Mirror
+mean_r_mirror=-0.096464 d=0.015971 [0.003154, 0.028544] weekly_t_d=2.4580 coin=-0.080493
+
+Random baseline (independent trades; no bias or trend_agree)
+seed requested achieved skipped_draws     mean_r   win_rate
+   0     30265    30265           624  -0.074799   0.464431
+   1     30265    30265           595  -0.086263   0.460202
+   2     30265    30265           567  -0.087516   0.459045
+   3     30265    30265           588  -0.078171   0.462614
+   4     30265    30265           531  -0.077779   0.463109
+mean over seeds: mean_r=-0.080905 win_rate=0.461880
+
+Breakdown by pair
+pair          n      mean_r           d
+eurusd     3204   -0.042156    0.016242
+gbpusd     3638   -0.039780    0.014902
+usdjpy     2610   -0.071079   -0.001561
+audusd     2732   -0.076961    0.003491
+usdcad     2682   -0.072963    0.022285
+usdchf     2478   -0.064387    0.025129
+nzdusd     2536   -0.084476    0.025688
+eurjpy     3775   -0.051118    0.023657
+gbpjpy     4682   -0.072001    0.013191
+eurgbp     1928   -0.092154    0.017317
+
+Breakdown by entry year
+year          n      mean_r           d
+2010       4028   -0.057857    0.004843
+2011       3754   -0.070568   -0.003023
+2012       2620   -0.056664    0.040709
+2013       3101   -0.039251    0.037641
+2014       2403   -0.040915    0.046121
+2015       3408   -0.051389    0.018791
+2016       3636   -0.056047    0.018317
+2017       2654   -0.094256    0.005785
+2018       2620   -0.099603   -0.013076
+2019       2041   -0.096175    0.014326
+
+direction skill d = 0.015971 (t = 2.4580); exits and costs alone give -0.080905

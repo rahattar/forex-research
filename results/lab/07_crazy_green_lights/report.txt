@@ -1,0 +1,80 @@
+Idea: 07_crazy_green_lights
+Description: Idea 3: the crazy idea with two extra green lights: the 4h trend must agree and the cost must be at most 10 percent of the risk.
+SHA256: 28ceb128042a54119cb5d8a6a1ab0c2a8213828789207b070003aefac3ba42cf
+Period: lab [2010-01-01T00:00:00+00:00, 2020-01-01T00:00:00+00:00)
+Results from the lab are not claims.
+
+Counts by pair
+pair       signals   skipped    trades trades/year
+eurusd      110925    109227      1698     169.823
+gbpusd      112239    110503      1736     173.624
+usdjpy      110705    109051      1654     165.423
+audusd      114874    113348      1526     152.621
+usdcad      115014    113565      1449     144.920
+usdchf      112452    110978      1474     147.420
+nzdusd      115028    113603      1425     142.520
+eurjpy      110466    108835      1631     163.122
+gbpjpy      109779    108183      1596     159.622
+eurgbp      106393    105061      1332     133.218
+all        1117875   1102354     15521    1552.312
+
+Skipped by reason and pair
+reason                              eurusd    gbpusd    usdjpy    audusd    usdcad    usdchf    nzdusd    eurjpy    gbpjpy    eurgbp       all
+bias                                 19875     19792     19640     20809     20486     21223     21828     20093     19722     20705    204173
+friday                                 577       581       523       588       692       609       595       583       568       661      5977
+light cost                            1372      1143      1768      1861      2327      2730      2681      1514      1553      3012     19961
+light trend_agree                    13826     13974     13731     14400     13946     13585     14607     14278     13735     12935    139017
+pair busy                            70959     72503     70950     72952     73536     69954     71237     69642     70064     65073    706870
+stop too close                         249       250       266       387       530       575       509       375       423       539      4103
+stop unavailable                       133       179       157       177       164       154       172       151       170       158      1615
+stop wrong side                       2236      2081      2016      2174      1884      2148      1974      2199      1948      1978     20638
+
+Strategy
+trades=15521 mean_r=-0.052341 [-0.078278, -0.025808] weekly_t=-3.9539
+win_rate=0.398621 mean_win=1.107712 mean_loss=-0.821277 payoff=1.348768 skewness=1.029939
+median_hold_hours=41.5000 longest_losing_streak=26 mean_cost_r=0.053248
+Exit reasons
+stop           n=   6781 share=0.436892 mean_r=-1.007706
+target         n=   1452 share=0.093551 mean_r=2.493931
+time           n=   7277 share=0.468849 mean_r=0.329404
+end_of_split   n=     11 share=0.000709 mean_r=0.237276
+
+Mirror
+mean_r_mirror=-0.026675 d=-0.012833 [-0.036467, 0.011300] weekly_t_d=-1.0573 coin=-0.039508
+
+Random baseline (independent trades; no bias or trend_agree)
+seed requested achieved skipped_draws     mean_r   win_rate
+   0     15521    15518         16280  -0.045040   0.395734
+   1     15521    15519         16057  -0.027603   0.400284
+   2     15521    15520         16360  -0.029344   0.399807
+   3     15521    15521         16370  -0.027931   0.399845
+   4     15521    15516         16397  -0.009538   0.404743
+mean over seeds: mean_r=-0.027891 win_rate=0.400083
+
+Breakdown by pair
+pair          n      mean_r           d
+eurusd     1698   -0.041349   -0.016909
+gbpusd     1736   -0.061971   -0.045267
+usdjpy     1654   -0.063698   -0.032408
+audusd     1526   -0.061422   -0.028278
+usdcad     1449   -0.075488   -0.018978
+usdchf     1474   -0.037961    0.024648
+nzdusd     1425   -0.083286   -0.039569
+eurjpy     1631   -0.045680    0.003214
+gbpjpy     1596   -0.006307    0.027883
+eurgbp     1332   -0.050237    0.002011
+
+Breakdown by entry year
+year          n      mean_r           d
+2010       1653   -0.046888   -0.004068
+2011       1627   -0.061778   -0.059095
+2012       1514   -0.025571    0.040566
+2013       1605   -0.055619    0.014847
+2014       1464   -0.102733   -0.049285
+2015       1680   -0.037421   -0.027403
+2016       1648   -0.014215    0.023140
+2017       1535   -0.089888   -0.029328
+2018       1469   -0.046728   -0.028473
+2019       1326   -0.047560   -0.011051
+
+direction skill d = -0.012833 (t = -1.0573); exits and costs alone give -0.027891

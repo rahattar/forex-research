@@ -1,0 +1,21 @@
+name = "06_crazy_trail_swing"
+description = "Idea 2: the crazy idea with the stop trailed behind each new 1h swing and no fixed target."
+max_hold_hours = 48
+[entry]
+type = "trigger"
+sides = "both"
+[bias]
+type = "trend"
+timeframe = "1h"
+fast = 20
+slow = 50
+[stop]
+type = "level"
+buffer = 0.1
+level = { type = "swing", timeframe = "1h", k = 3 }
+[target]
+type = "none"
+[[manage]]
+type = "trail_level"
+buffer = 0.1
+level = { type = "swing", timeframe = "1h", k = 3 }

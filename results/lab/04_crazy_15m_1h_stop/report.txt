@@ -1,0 +1,78 @@
+Idea: 04_crazy_15m_1h_stop
+Description: The crazy idea: 15-minute trigger in the direction of the 1h trend, stop beyond the 1h swing, target 2.5 times the risk.
+SHA256: 85c2500ab2b60756ecee84a09c6c6cc73460fffe9ff59d81f97f4ccda34993af
+Period: lab [2010-01-01T00:00:00+00:00, 2020-01-01T00:00:00+00:00)
+Results from the lab are not claims.
+
+Counts by pair
+pair       signals   skipped    trades trades/year
+eurusd      110925    108089      2836     283.639
+gbpusd      112239    109305      2934     293.440
+usdjpy      110705    107895      2810     281.038
+audusd      114874    112129      2745     274.538
+usdcad      115014    112389      2625     262.536
+usdchf      112452    109638      2814     281.439
+nzdusd      115028    112369      2659     265.936
+eurjpy      110466    107587      2879     287.939
+gbpjpy      109779    106990      2789     278.938
+eurgbp      106393    103672      2721     272.137
+all        1117875   1090063     27812    2781.581
+
+Skipped by reason and pair
+reason                              eurusd    gbpusd    usdjpy    audusd    usdcad    usdchf    nzdusd    eurjpy    gbpjpy    eurgbp       all
+bias                                  5423      5439      4926      5094      4932      5409      5201      5361      5235      5290     52310
+friday                                 152       142       146       124       229       166       213       156        94       135      1557
+pair busy                           100689    101919    101134    105029    105671    102158    105130    100180     99911     96371   1018192
+stop too close                         124       166       171       214       258       301       315       207       244       295      2295
+stop unavailable                       133       179       157       177       164       154       172       151       170       158      1615
+stop wrong side                       1568      1460      1361      1491      1135      1450      1338      1532      1336      1423     14094
+
+Strategy
+trades=27812 mean_r=-0.104554 [-0.123237, -0.085333] weekly_t=-10.6863
+win_rate=0.357328 mean_win=1.271372 mean_loss=-0.869572 payoff=1.462066 skewness=1.127844
+median_hold_hours=22.0000 longest_losing_streak=39 mean_cost_r=0.104527
+Exit reasons
+stop           n=  14247 share=0.512261 mean_r=-1.006741
+target         n=   3195 share=0.114878 mean_r=2.493948
+time           n=  10355 share=0.372321 mean_r=0.334443
+end_of_split   n=     15 share=0.000539 mean_r=0.258423
+
+Mirror
+mean_r_mirror=-0.069815 d=-0.017369 [-0.032869, -0.001016] weekly_t_d=-2.1203 coin=-0.087184
+
+Random baseline (independent trades; no bias or trend_agree)
+seed requested achieved skipped_draws     mean_r   win_rate
+   0     27812    27812          7581  -0.074623   0.348555
+   1     27812    27812          7626  -0.082478   0.347764
+   2     27812    27812          7530  -0.089083   0.341148
+   3     27812    27812          7462  -0.079919   0.345750
+   4     27812    27812          7592  -0.075649   0.347548
+mean over seeds: mean_r=-0.080351 win_rate=0.346153
+
+Breakdown by pair
+pair          n      mean_r           d
+eurusd     2836   -0.090754   -0.010678
+gbpusd     2934   -0.099756   -0.046098
+usdjpy     2810   -0.091203   -0.010416
+audusd     2745   -0.093426   -0.021885
+usdcad     2625   -0.114564   -0.015294
+usdchf     2814   -0.138991   -0.030848
+nzdusd     2659   -0.119580   -0.027433
+eurjpy     2879   -0.078706   -0.003966
+gbpjpy     2789   -0.066920    0.014218
+eurgbp     2721   -0.155087   -0.020779
+
+Breakdown by entry year
+year          n      mean_r           d
+2010       2718   -0.086978   -0.024844
+2011       2748   -0.058228    0.003395
+2012       2827   -0.102170   -0.004838
+2013       2795   -0.125869   -0.031109
+2014       2798   -0.143474   -0.046542
+2015       2821   -0.096192   -0.021130
+2016       2801   -0.079190   -0.001386
+2017       2820   -0.141464   -0.050066
+2018       2815   -0.115825   -0.018347
+2019       2669   -0.094118    0.023339
+
+direction skill d = -0.017369 (t = -2.1203); exits and costs alone give -0.080351

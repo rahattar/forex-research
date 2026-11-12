@@ -1,0 +1,78 @@
+Idea: 06_crazy_trail_swing
+Description: Idea 2: the crazy idea with the stop trailed behind each new 1h swing and no fixed target.
+SHA256: 25e7abf8b3d99f1e30d566cc28cfff61707f9ccbb7cf3ae6f06cac2f0b388379
+Period: lab [2010-01-01T00:00:00+00:00, 2020-01-01T00:00:00+00:00)
+Results from the lab are not claims.
+
+Counts by pair
+pair       signals   skipped    trades trades/year
+eurusd      110925    106058      4867     486.767
+gbpusd      112239    107237      5002     500.268
+usdjpy      110705    106017      4688     468.864
+audusd      114874    110204      4670     467.064
+usdcad      115014    110164      4850     485.066
+usdchf      112452    107708      4744     474.465
+nzdusd      115028    110585      4443     444.361
+eurjpy      110466    105717      4749     474.965
+gbpjpy      109779    105052      4727     472.765
+eurgbp      106393    101795      4598     459.863
+all        1117875   1070537     47338    4734.448
+
+Skipped by reason and pair
+reason                              eurusd    gbpusd    usdjpy    audusd    usdcad    usdchf    nzdusd    eurjpy    gbpjpy    eurgbp       all
+bias                                 12440     12263     11635     12493     13016     12589     12212     12041     12115     12337    123141
+friday                                 195       221       257       243       310       218       333       231       214       232      2454
+pair busy                            88822     90429     89815     92576     91998     90034     93215     88937     88249     84528    898603
+stop too close                         506       489       565       815      1096      1057      1051       704       862      1091      8236
+stop unavailable                       133       179       157       177       164       154       172       151       170       158      1615
+stop wrong side                       3962      3656      3588      3900      3580      3656      3602      3653      3442      3449     36488
+
+Strategy
+trades=47338 mean_r=-0.156435 [-0.180098, -0.132104] weekly_t=-12.3690
+win_rate=0.222274 mean_win=2.175678 mean_loss=-0.822952 payoff=2.643750 skewness=6.504157
+median_hold_hours=6.7500 longest_losing_streak=63 mean_cost_r=0.163594
+Exit reasons
+stop           n=  41943 share=0.886032 mean_r=-0.457352
+target         n=      0 share=0.000000 mean_r=nan
+time           n=   5381 share=0.113672 mean_r=2.185228
+end_of_split   n=     14 share=0.000296 mean_r=1.336769
+
+Mirror
+mean_r_mirror=-0.144722 d=-0.005856 [-0.025013, 0.013190] weekly_t_d=-0.5912 coin=-0.150578
+
+Random baseline (independent trades; no bias or trend_agree)
+seed requested achieved skipped_draws     mean_r   win_rate
+   0     47338    47338         12823  -0.084672   0.268558
+   1     47338    47338         12659  -0.089833   0.269952
+   2     47338    47338         12995  -0.083534   0.268896
+   3     47338    47338         12693  -0.087390   0.268283
+   4     47338    47338         12894  -0.077970   0.271642
+mean over seeds: mean_r=-0.084680 win_rate=0.269466
+
+Breakdown by pair
+pair          n      mean_r           d
+eurusd     4867   -0.123940    0.009131
+gbpusd     5002   -0.102732    0.003539
+usdjpy     4688   -0.136240   -0.006498
+audusd     4670   -0.161895   -0.010666
+usdcad     4850   -0.223961   -0.011297
+usdchf     4744   -0.181803   -0.008069
+nzdusd     4443   -0.174090   -0.010173
+eurjpy     4749   -0.119411   -0.037158
+gbpjpy     4727   -0.130770    0.024879
+eurgbp     4598   -0.214458   -0.013479
+
+Breakdown by entry year
+year          n      mean_r           d
+2010       4735   -0.113959    0.020143
+2011       4996   -0.178700   -0.015757
+2012       4745   -0.151323    0.015682
+2013       4781   -0.185075   -0.026886
+2014       4697   -0.202746   -0.035593
+2015       4841   -0.110289    0.015077
+2016       4776   -0.094125    0.017858
+2017       4682   -0.193430   -0.026189
+2018       4617   -0.166529   -0.017326
+2019       4468   -0.170052   -0.006321
+
+direction skill d = -0.005856 (t = -0.5912); exits and costs alone give -0.084680
