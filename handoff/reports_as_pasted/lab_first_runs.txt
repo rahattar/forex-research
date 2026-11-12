@@ -1,0 +1,572 @@
+Output of python scripts/lab.py list:
+
+                            time                  name                                                           sha256  trades    mean_r         d       t_d      coin  random_r
+2026-11-12T16:00:58.083642+00:00     01_break_1h_swing 9c93f7f6c0e3adac58986d82fac05cb2dca34b5e08451e00314783959e91e3f5   45711 -0.086093  0.001915  0.360606 -0.088009 -0.088447
+2026-11-12T16:01:26.988134+00:00     02_break_prev_day 757e8041537cb6d803985228eebc762fbaa7406a8e51050f0d56499cc2a555eb   30630 -0.083949  0.004349  0.649515 -0.088299 -0.089427
+2026-11-12T16:01:56.140122+00:00    03_break_round_100 565dc3d3657c9f6e792071c007d7086e3a9ff210a706884b271619f5ee3c1eb8   30265 -0.064523  0.015971  2.458043 -0.080493 -0.080905
+2026-11-12T16:02:33.242228+00:00  04_crazy_15m_1h_stop 85c2500ab2b60756ecee84a09c6c6cc73460fffe9ff59d81f97f4ccda34993af   27812 -0.104554 -0.017369 -2.120348 -0.087184 -0.080351
+2026-11-12T16:03:20.858933+00:00    05_crazy_breakeven 22596dbcb74976c93e4d2f0ada765a5b11866f56a8bfd5507f77d7c0865e31fa   30626 -0.111032 -0.015368 -2.165569 -0.095664 -0.082588
+2026-11-12T16:04:20.214193+00:00  06_crazy_trail_swing 25e7abf8b3d99f1e30d566cc28cfff61707f9ccbb7cf3ae6f06cac2f0b388379   47338 -0.156435 -0.005856 -0.591201 -0.150578 -0.084680
+2026-11-12T16:04:45.725399+00:00 07_crazy_green_lights 28ceb128042a54119cb5d8a6a1ab0c2a8213828789207b070003aefac3ba42cf   15521 -0.052341 -0.012833 -1.057324 -0.039508 -0.027891
+
+01_break_1h_swing/report.txt (results/lab/01_break_1h_swing/report.txt):
+
+Idea: 01_break_1h_swing
+Description: Idea 1: when a 1h swing low or high is broken, does price keep going? Sell the break of support, buy the break of resistance, stop and target one expected 4h move away.
+SHA256: 9c93f7f6c0e3adac58986d82fac05cb2dca34b5e08451e00314783959e91e3f5
+Period: lab [2010-01-01T00:00:00+00:00, 2020-01-01T00:00:00+00:00)
+Results from the lab are not claims.
+
+Counts by pair
+pair       signals   skipped    trades trades/year
+eurusd        9084      4341      4743     474.365
+gbpusd        9179      4492      4687     468.764
+usdjpy        8903      4466      4437     443.761
+audusd        9377      4674      4703     470.364
+usdcad        9781      5236      4545     454.562
+usdchf        9335      4808      4527     452.762
+nzdusd        9309      4805      4504     450.462
+eurjpy        9207      4655      4552     455.262
+gbpjpy        9294      4777      4517     451.762
+eurgbp        9341      4845      4496     449.662
+all          92810     47099     45711    4571.726
+
+Skipped by reason and pair
+reason                              eurusd    gbpusd    usdjpy    audusd    usdcad    usdchf    nzdusd    eurjpy    gbpjpy    eurgbp       all
+friday                                  23        38        43        37        45        32        39        32        37        42       368
+pair busy                             4284      4420      4385      4606      5158      4741      4730      4588      4700      4763     46375
+stop unavailable                        34        34        38        31        33        35        36        35        40        40       356
+
+Strategy
+trades=45711 mean_r=-0.086093 [-0.097209, -0.075381] weekly_t=-15.3773
+win_rate=0.458467 mean_win=0.977315 mean_loss=-0.986387 payoff=0.990803 skewness=0.155546
+median_hold_hours=3.7500 longest_losing_streak=24 mean_cost_r=0.101129
+Exit reasons
+stop           n=  24063 share=0.526416 mean_r=-1.004665
+target         n=  20290 share=0.443876 mean_r=0.997886
+time           n=   1354 share=0.029621 mean_r=-0.005524
+end_of_split   n=      4 share=0.000088 mean_r=0.049398
+
+Mirror
+mean_r_mirror=-0.089924 d=0.001915 [-0.008912, 0.012317] weekly_t_d=0.3606 coin=-0.088009
+
+Random baseline (independent trades; no bias or trend_agree)
+seed requested achieved skipped_draws     mean_r   win_rate
+   0     45711    45711           863  -0.096993   0.453348
+   1     45711    45711           817  -0.088391   0.457395
+   2     45711    45711           791  -0.090394   0.456783
+   3     45711    45711           832  -0.086546   0.458664
+   4     45711    45711           860  -0.079909   0.462099
+mean over seeds: mean_r=-0.088447 win_rate=0.457658
+
+Breakdown by pair
+pair          n      mean_r           d
+eurusd     4743   -0.066423   -0.000567
+gbpusd     4687   -0.056106    0.001081
+usdjpy     4437   -0.042095    0.035454
+audusd     4703   -0.090067   -0.006334
+usdcad     4545   -0.110059   -0.010633
+usdchf     4527   -0.111471   -0.006733
+nzdusd     4504   -0.112514   -0.003596
+eurjpy     4552   -0.061746    0.013610
+gbpjpy     4517   -0.087444    0.001864
+eurgbp     4496   -0.124417   -0.003943
+
+Breakdown by entry year
+year          n      mean_r           d
+2010       4546   -0.056098    0.008581
+2011       4703   -0.094947   -0.027151
+2012       4689   -0.086321    0.010985
+2013       4514   -0.088365   -0.003680
+2014       4546   -0.099868    0.006875
+2015       4545   -0.057481    0.018478
+2016       4559   -0.044744    0.039357
+2017       4527   -0.099936   -0.011162
+2018       4709   -0.113415   -0.015455
+2019       4373   -0.119940   -0.006866
+
+direction skill d = 0.001915 (t = 0.3606); exits and costs alone give -0.088447
+
+02_break_prev_day/report.txt (results/lab/02_break_prev_day/report.txt):
+
+Idea: 02_break_prev_day
+Description: Idea 1 with the previous day's low and high as the levels.
+SHA256: 757e8041537cb6d803985228eebc762fbaa7406a8e51050f0d56499cc2a555eb
+Period: lab [2010-01-01T00:00:00+00:00, 2020-01-01T00:00:00+00:00)
+Results from the lab are not claims.
+
+Counts by pair
+pair       signals   skipped    trades trades/year
+eurusd        5782      2687      3095     309.542
+gbpusd        5818      2702      3116     311.643
+usdjpy        5757      2833      2924     292.440
+audusd        6245      3045      3200     320.044
+usdcad        6055      3065      2990     299.041
+usdchf        5912      2889      3023     302.341
+nzdusd        6360      3226      3134     313.443
+eurjpy        6059      3030      3029     302.941
+gbpjpy        6077      3061      3016     301.641
+eurgbp        6108      3005      3103     310.342
+all          60173     29543     30630    3063.419
+
+Skipped by reason and pair
+reason                              eurusd    gbpusd    usdjpy    audusd    usdcad    usdchf    nzdusd    eurjpy    gbpjpy    eurgbp       all
+friday                                  13        26         8         6        31        23        19        17        19        28       190
+pair busy                             2657      2644      2798      3016      3012      2848      3168      2988      3015      2949     29095
+stop unavailable                        17        32        27        23        22        18        39        25        27        28       258
+
+Strategy
+trades=30630 mean_r=-0.083949 [-0.097560, -0.070303] weekly_t=-11.9496
+win_rate=0.459680 mean_win=0.978397 mean_loss=-0.987746 payoff=0.990535 skewness=0.137961
+median_hold_hours=3.7500 longest_losing_streak=24 mean_cost_r=0.101730
+Exit reasons
+stop           n=  16098 share=0.525563 mean_r=-1.005881
+target         n=  13659 share=0.445935 mean_r=0.997676
+time           n=    869 share=0.028371 mean_r=-0.006135
+end_of_split   n=      4 share=0.000131 mean_r=-0.154927
+
+Mirror
+mean_r_mirror=-0.092648 d=0.004349 [-0.008952, 0.017751] weekly_t_d=0.6495 coin=-0.088299
+
+Random baseline (independent trades; no bias or trend_agree)
+seed requested achieved skipped_draws     mean_r   win_rate
+   0     30630    30630           559  -0.088542   0.458472
+   1     30630    30630           538  -0.096491   0.454130
+   2     30630    30630           553  -0.091886   0.455828
+   3     30630    30630           544  -0.087735   0.458341
+   4     30630    30630           550  -0.082484   0.459974
+mean over seeds: mean_r=-0.089427 win_rate=0.457349
+
+Breakdown by pair
+pair          n      mean_r           d
+eurusd     3095   -0.058034    0.010434
+gbpusd     3116   -0.063572   -0.006486
+usdjpy     2924   -0.037367    0.026210
+audusd     3200   -0.094873   -0.004927
+usdcad     2990   -0.096912    0.001748
+usdchf     3023   -0.102724    0.002381
+nzdusd     3134   -0.100079    0.014099
+eurjpy     3029   -0.055540    0.026602
+gbpjpy     3016   -0.067672    0.024024
+eurgbp     3103   -0.159368   -0.048140
+
+Breakdown by entry year
+year          n      mean_r           d
+2010       3115   -0.066737   -0.002638
+2011       3007   -0.032277    0.034388
+2012       3258   -0.118462   -0.026741
+2013       2959   -0.074637    0.011482
+2014       3044   -0.115914   -0.008575
+2015       2918   -0.052769    0.019375
+2016       3083   -0.058937    0.018990
+2017       3134   -0.115978   -0.018727
+2018       3166   -0.085321    0.011708
+2019       2946   -0.114561    0.008086
+
+direction skill d = 0.004349 (t = 0.6495); exits and costs alone give -0.089427
+
+03_break_round_100/report.txt (results/lab/03_break_round_100/report.txt):
+
+Idea: 03_break_round_100
+Description: Idea 1 with round numbers every 100 pips as the levels.
+SHA256: 565dc3d3657c9f6e792071c007d7086e3a9ff210a706884b271619f5ee3c1eb8
+Period: lab [2010-01-01T00:00:00+00:00, 2020-01-01T00:00:00+00:00)
+Results from the lab are not claims.
+
+Counts by pair
+pair       signals   skipped    trades trades/year
+eurusd       10530      7326      3204     320.444
+gbpusd       11749      8111      3638     363.850
+usdjpy        8237      5627      2610     261.036
+audusd        9213      6481      2732     273.237
+usdcad        9154      6472      2682     268.237
+usdchf        8402      5924      2478     247.834
+nzdusd        8913      6377      2536     253.635
+eurjpy       13128      9353      3775     377.552
+gbpjpy       16871     12189      4682     468.264
+eurgbp        6275      4347      1928     192.826
+all         102472     72207     30265    3026.914
+
+Skipped by reason and pair
+reason                              eurusd    gbpusd    usdjpy    audusd    usdcad    usdchf    nzdusd    eurjpy    gbpjpy    eurgbp       all
+friday                                  35        42        30        17        48        21        18        35        41        21       308
+pair busy                             7210      7987      5561      6401      6372      5864      6300      9267     12068      4293     71323
+stop unavailable                        81        82        36        63        52        39        59        51        80        33       576
+
+Strategy
+trades=30265 mean_r=-0.064523 [-0.077758, -0.051539] weekly_t=-9.7096
+win_rate=0.469156 mean_win=0.977555 mean_loss=-0.985503 payoff=0.991936 skewness=0.097725
+median_hold_hours=3.2500 longest_losing_streak=18 mean_cost_r=0.088687
+Exit reasons
+stop           n=  15548 share=0.513729 mean_r=-1.006114
+target         n=  13752 share=0.454386 mean_r=0.997936
+time           n=    964 share=0.031852 mean_r=-0.034130
+end_of_split   n=      1 share=0.000033 mean_r=-0.434201
+
+Mirror
+mean_r_mirror=-0.096464 d=0.015971 [0.003154, 0.028544] weekly_t_d=2.4580 coin=-0.080493
+
+Random baseline (independent trades; no bias or trend_agree)
+seed requested achieved skipped_draws     mean_r   win_rate
+   0     30265    30265           624  -0.074799   0.464431
+   1     30265    30265           595  -0.086263   0.460202
+   2     30265    30265           567  -0.087516   0.459045
+   3     30265    30265           588  -0.078171   0.462614
+   4     30265    30265           531  -0.077779   0.463109
+mean over seeds: mean_r=-0.080905 win_rate=0.461880
+
+Breakdown by pair
+pair          n      mean_r           d
+eurusd     3204   -0.042156    0.016242
+gbpusd     3638   -0.039780    0.014902
+usdjpy     2610   -0.071079   -0.001561
+audusd     2732   -0.076961    0.003491
+usdcad     2682   -0.072963    0.022285
+usdchf     2478   -0.064387    0.025129
+nzdusd     2536   -0.084476    0.025688
+eurjpy     3775   -0.051118    0.023657
+gbpjpy     4682   -0.072001    0.013191
+eurgbp     1928   -0.092154    0.017317
+
+Breakdown by entry year
+year          n      mean_r           d
+2010       4028   -0.057857    0.004843
+2011       3754   -0.070568   -0.003023
+2012       2620   -0.056664    0.040709
+2013       3101   -0.039251    0.037641
+2014       2403   -0.040915    0.046121
+2015       3408   -0.051389    0.018791
+2016       3636   -0.056047    0.018317
+2017       2654   -0.094256    0.005785
+2018       2620   -0.099603   -0.013076
+2019       2041   -0.096175    0.014326
+
+direction skill d = 0.015971 (t = 2.4580); exits and costs alone give -0.080905
+
+04_crazy_15m_1h_stop/report.txt (results/lab/04_crazy_15m_1h_stop/report.txt):
+
+Idea: 04_crazy_15m_1h_stop
+Description: The crazy idea: 15-minute trigger in the direction of the 1h trend, stop beyond the 1h swing, target 2.5 times the risk.
+SHA256: 85c2500ab2b60756ecee84a09c6c6cc73460fffe9ff59d81f97f4ccda34993af
+Period: lab [2010-01-01T00:00:00+00:00, 2020-01-01T00:00:00+00:00)
+Results from the lab are not claims.
+
+Counts by pair
+pair       signals   skipped    trades trades/year
+eurusd      110925    108089      2836     283.639
+gbpusd      112239    109305      2934     293.440
+usdjpy      110705    107895      2810     281.038
+audusd      114874    112129      2745     274.538
+usdcad      115014    112389      2625     262.536
+usdchf      112452    109638      2814     281.439
+nzdusd      115028    112369      2659     265.936
+eurjpy      110466    107587      2879     287.939
+gbpjpy      109779    106990      2789     278.938
+eurgbp      106393    103672      2721     272.137
+all        1117875   1090063     27812    2781.581
+
+Skipped by reason and pair
+reason                              eurusd    gbpusd    usdjpy    audusd    usdcad    usdchf    nzdusd    eurjpy    gbpjpy    eurgbp       all
+bias                                  5423      5439      4926      5094      4932      5409      5201      5361      5235      5290     52310
+friday                                 152       142       146       124       229       166       213       156        94       135      1557
+pair busy                           100689    101919    101134    105029    105671    102158    105130    100180     99911     96371   1018192
+stop too close                         124       166       171       214       258       301       315       207       244       295      2295
+stop unavailable                       133       179       157       177       164       154       172       151       170       158      1615
+stop wrong side                       1568      1460      1361      1491      1135      1450      1338      1532      1336      1423     14094
+
+Strategy
+trades=27812 mean_r=-0.104554 [-0.123237, -0.085333] weekly_t=-10.6863
+win_rate=0.357328 mean_win=1.271372 mean_loss=-0.869572 payoff=1.462066 skewness=1.127844
+median_hold_hours=22.0000 longest_losing_streak=39 mean_cost_r=0.104527
+Exit reasons
+stop           n=  14247 share=0.512261 mean_r=-1.006741
+target         n=   3195 share=0.114878 mean_r=2.493948
+time           n=  10355 share=0.372321 mean_r=0.334443
+end_of_split   n=     15 share=0.000539 mean_r=0.258423
+
+Mirror
+mean_r_mirror=-0.069815 d=-0.017369 [-0.032869, -0.001016] weekly_t_d=-2.1203 coin=-0.087184
+
+Random baseline (independent trades; no bias or trend_agree)
+seed requested achieved skipped_draws     mean_r   win_rate
+   0     27812    27812          7581  -0.074623   0.348555
+   1     27812    27812          7626  -0.082478   0.347764
+   2     27812    27812          7530  -0.089083   0.341148
+   3     27812    27812          7462  -0.079919   0.345750
+   4     27812    27812          7592  -0.075649   0.347548
+mean over seeds: mean_r=-0.080351 win_rate=0.346153
+
+Breakdown by pair
+pair          n      mean_r           d
+eurusd     2836   -0.090754   -0.010678
+gbpusd     2934   -0.099756   -0.046098
+usdjpy     2810   -0.091203   -0.010416
+audusd     2745   -0.093426   -0.021885
+usdcad     2625   -0.114564   -0.015294
+usdchf     2814   -0.138991   -0.030848
+nzdusd     2659   -0.119580   -0.027433
+eurjpy     2879   -0.078706   -0.003966
+gbpjpy     2789   -0.066920    0.014218
+eurgbp     2721   -0.155087   -0.020779
+
+Breakdown by entry year
+year          n      mean_r           d
+2010       2718   -0.086978   -0.024844
+2011       2748   -0.058228    0.003395
+2012       2827   -0.102170   -0.004838
+2013       2795   -0.125869   -0.031109
+2014       2798   -0.143474   -0.046542
+2015       2821   -0.096192   -0.021130
+2016       2801   -0.079190   -0.001386
+2017       2820   -0.141464   -0.050066
+2018       2815   -0.115825   -0.018347
+2019       2669   -0.094118    0.023339
+
+direction skill d = -0.017369 (t = -2.1203); exits and costs alone give -0.080351
+
+05_crazy_breakeven/report.txt (results/lab/05_crazy_breakeven/report.txt):
+
+Idea: 05_crazy_breakeven
+Description: Idea 2: the crazy idea with a mechanical move of the stop to break-even after 1R.
+SHA256: 22596dbcb74976c93e4d2f0ada765a5b11866f56a8bfd5507f77d7c0865e31fa
+Period: lab [2010-01-01T00:00:00+00:00, 2020-01-01T00:00:00+00:00)
+Results from the lab are not claims.
+
+Counts by pair
+pair       signals   skipped    trades trades/year
+eurusd      110925    107802      3123     312.343
+gbpusd      112239    108995      3244     324.444
+usdjpy      110705    107564      3141     314.143
+audusd      114874    111848      3026     302.641
+usdcad      115014    112101      2913     291.340
+usdchf      112452    109397      3055     305.542
+nzdusd      115028    112098      2930     293.040
+eurjpy      110466    107295      3171     317.143
+gbpjpy      109779    106719      3060     306.042
+eurgbp      106393    103430      2963     296.341
+all        1117875   1087249     30626    3063.019
+
+Skipped by reason and pair
+reason                              eurusd    gbpusd    usdjpy    audusd    usdcad    usdchf    nzdusd    eurjpy    gbpjpy    eurgbp       all
+bias                                  6198      6310      5893      5964      5895      6312      5992      6251      6059      6010     60884
+friday                                 147       184       156       119       253       171       208       161       114       157      1670
+pair busy                            99338    100454     99524    103625    104070    100739    103822     98734     98553     95153   1004012
+stop too close                         158       185       186       243       323       343       348       230       280       336      2632
+stop unavailable                       133       179       157       177       164       154       172       151       170       158      1615
+stop wrong side                       1828      1683      1648      1720      1396      1678      1556      1768      1543      1616     16436
+
+Strategy
+trades=30626 mean_r=-0.111032 [-0.127181, -0.094423] weekly_t=-13.0253
+win_rate=0.299549 mean_win=1.268249 mean_loss=-0.700884 payoff=1.809497 skewness=1.214488
+median_hold_hours=15.7500 longest_losing_streak=40 mean_cost_r=0.108341
+Exit reasons
+stop           n=  18080 share=0.590348 mean_r=-0.770245
+target         n=   2925 share=0.095507 mean_r=2.494789
+time           n=   9606 share=0.313655 mean_r=0.335668
+end_of_split   n=     15 share=0.000490 mean_r=0.258423
+
+Mirror
+mean_r_mirror=-0.080295 d=-0.015368 [-0.029178, -0.001191] weekly_t_d=-2.1656 coin=-0.095664
+
+Random baseline (independent trades; no bias or trend_agree)
+seed requested achieved skipped_draws     mean_r   win_rate
+   0     30626    30626          8121  -0.082874   0.286750
+   1     30626    30626          8336  -0.088971   0.283387
+   2     30626    30626          8301  -0.078704   0.287207
+   3     30626    30626          8375  -0.081566   0.283550
+   4     30626    30626          8351  -0.080823   0.284072
+mean over seeds: mean_r=-0.082588 win_rate=0.284993
+
+Breakdown by pair
+pair          n      mean_r           d
+eurusd     3123   -0.090021   -0.009551
+gbpusd     3244   -0.103426   -0.036250
+usdjpy     3141   -0.107051   -0.018250
+audusd     3026   -0.109734   -0.012337
+usdcad     2913   -0.136531   -0.024791
+usdchf     3055   -0.120928   -0.010345
+nzdusd     2930   -0.123261   -0.023276
+eurjpy     3171   -0.085928   -0.009498
+gbpjpy     3060   -0.072427    0.010962
+eurgbp     2963   -0.166421   -0.020249
+
+Breakdown by entry year
+year          n      mean_r           d
+2010       2988   -0.092530   -0.024257
+2011       3074   -0.059114    0.014516
+2012       3092   -0.115182   -0.015856
+2013       3085   -0.129174   -0.032556
+2014       3076   -0.141049   -0.037243
+2015       3070   -0.108311   -0.018821
+2016       3137   -0.096071   -0.003694
+2017       3097   -0.138444   -0.033774
+2018       3101   -0.129163   -0.016130
+2019       2906   -0.099990    0.015554
+
+direction skill d = -0.015368 (t = -2.1656); exits and costs alone give -0.082588
+
+06_crazy_trail_swing/report.txt (results/lab/06_crazy_trail_swing/report.txt):
+
+Idea: 06_crazy_trail_swing
+Description: Idea 2: the crazy idea with the stop trailed behind each new 1h swing and no fixed target.
+SHA256: 25e7abf8b3d99f1e30d566cc28cfff61707f9ccbb7cf3ae6f06cac2f0b388379
+Period: lab [2010-01-01T00:00:00+00:00, 2020-01-01T00:00:00+00:00)
+Results from the lab are not claims.
+
+Counts by pair
+pair       signals   skipped    trades trades/year
+eurusd      110925    106058      4867     486.767
+gbpusd      112239    107237      5002     500.268
+usdjpy      110705    106017      4688     468.864
+audusd      114874    110204      4670     467.064
+usdcad      115014    110164      4850     485.066
+usdchf      112452    107708      4744     474.465
+nzdusd      115028    110585      4443     444.361
+eurjpy      110466    105717      4749     474.965
+gbpjpy      109779    105052      4727     472.765
+eurgbp      106393    101795      4598     459.863
+all        1117875   1070537     47338    4734.448
+
+Skipped by reason and pair
+reason                              eurusd    gbpusd    usdjpy    audusd    usdcad    usdchf    nzdusd    eurjpy    gbpjpy    eurgbp       all
+bias                                 12440     12263     11635     12493     13016     12589     12212     12041     12115     12337    123141
+friday                                 195       221       257       243       310       218       333       231       214       232      2454
+pair busy                            88822     90429     89815     92576     91998     90034     93215     88937     88249     84528    898603
+stop too close                         506       489       565       815      1096      1057      1051       704       862      1091      8236
+stop unavailable                       133       179       157       177       164       154       172       151       170       158      1615
+stop wrong side                       3962      3656      3588      3900      3580      3656      3602      3653      3442      3449     36488
+
+Strategy
+trades=47338 mean_r=-0.156435 [-0.180098, -0.132104] weekly_t=-12.3690
+win_rate=0.222274 mean_win=2.175678 mean_loss=-0.822952 payoff=2.643750 skewness=6.504157
+median_hold_hours=6.7500 longest_losing_streak=63 mean_cost_r=0.163594
+Exit reasons
+stop           n=  41943 share=0.886032 mean_r=-0.457352
+target         n=      0 share=0.000000 mean_r=nan
+time           n=   5381 share=0.113672 mean_r=2.185228
+end_of_split   n=     14 share=0.000296 mean_r=1.336769
+
+Mirror
+mean_r_mirror=-0.144722 d=-0.005856 [-0.025013, 0.013190] weekly_t_d=-0.5912 coin=-0.150578
+
+Random baseline (independent trades; no bias or trend_agree)
+seed requested achieved skipped_draws     mean_r   win_rate
+   0     47338    47338         12823  -0.084672   0.268558
+   1     47338    47338         12659  -0.089833   0.269952
+   2     47338    47338         12995  -0.083534   0.268896
+   3     47338    47338         12693  -0.087390   0.268283
+   4     47338    47338         12894  -0.077970   0.271642
+mean over seeds: mean_r=-0.084680 win_rate=0.269466
+
+Breakdown by pair
+pair          n      mean_r           d
+eurusd     4867   -0.123940    0.009131
+gbpusd     5002   -0.102732    0.003539
+usdjpy     4688   -0.136240   -0.006498
+audusd     4670   -0.161895   -0.010666
+usdcad     4850   -0.223961   -0.011297
+usdchf     4744   -0.181803   -0.008069
+nzdusd     4443   -0.174090   -0.010173
+eurjpy     4749   -0.119411   -0.037158
+gbpjpy     4727   -0.130770    0.024879
+eurgbp     4598   -0.214458   -0.013479
+
+Breakdown by entry year
+year          n      mean_r           d
+2010       4735   -0.113959    0.020143
+2011       4996   -0.178700   -0.015757
+2012       4745   -0.151323    0.015682
+2013       4781   -0.185075   -0.026886
+2014       4697   -0.202746   -0.035593
+2015       4841   -0.110289    0.015077
+2016       4776   -0.094125    0.017858
+2017       4682   -0.193430   -0.026189
+2018       4617   -0.166529   -0.017326
+2019       4468   -0.170052   -0.006321
+
+direction skill d = -0.005856 (t = -0.5912); exits and costs alone give -0.084680
+
+07_crazy_green_lights/report.txt (results/lab/07_crazy_green_lights/report.txt):
+
+Idea: 07_crazy_green_lights
+Description: Idea 3: the crazy idea with two extra green lights: the 4h trend must agree and the cost must be at most 10 percent of the risk.
+SHA256: 28ceb128042a54119cb5d8a6a1ab0c2a8213828789207b070003aefac3ba42cf
+Period: lab [2010-01-01T00:00:00+00:00, 2020-01-01T00:00:00+00:00)
+Results from the lab are not claims.
+
+Counts by pair
+pair       signals   skipped    trades trades/year
+eurusd      110925    109227      1698     169.823
+gbpusd      112239    110503      1736     173.624
+usdjpy      110705    109051      1654     165.423
+audusd      114874    113348      1526     152.621
+usdcad      115014    113565      1449     144.920
+usdchf      112452    110978      1474     147.420
+nzdusd      115028    113603      1425     142.520
+eurjpy      110466    108835      1631     163.122
+gbpjpy      109779    108183      1596     159.622
+eurgbp      106393    105061      1332     133.218
+all        1117875   1102354     15521    1552.312
+
+Skipped by reason and pair
+reason                              eurusd    gbpusd    usdjpy    audusd    usdcad    usdchf    nzdusd    eurjpy    gbpjpy    eurgbp       all
+bias                                 19875     19792     19640     20809     20486     21223     21828     20093     19722     20705    204173
+friday                                 577       581       523       588       692       609       595       583       568       661      5977
+light cost                            1372      1143      1768      1861      2327      2730      2681      1514      1553      3012     19961
+light trend_agree                    13826     13974     13731     14400     13946     13585     14607     14278     13735     12935    139017
+pair busy                            70959     72503     70950     72952     73536     69954     71237     69642     70064     65073    706870
+stop too close                         249       250       266       387       530       575       509       375       423       539      4103
+stop unavailable                       133       179       157       177       164       154       172       151       170       158      1615
+stop wrong side                       2236      2081      2016      2174      1884      2148      1974      2199      1948      1978     20638
+
+Strategy
+trades=15521 mean_r=-0.052341 [-0.078278, -0.025808] weekly_t=-3.9539
+win_rate=0.398621 mean_win=1.107712 mean_loss=-0.821277 payoff=1.348768 skewness=1.029939
+median_hold_hours=41.5000 longest_losing_streak=26 mean_cost_r=0.053248
+Exit reasons
+stop           n=   6781 share=0.436892 mean_r=-1.007706
+target         n=   1452 share=0.093551 mean_r=2.493931
+time           n=   7277 share=0.468849 mean_r=0.329404
+end_of_split   n=     11 share=0.000709 mean_r=0.237276
+
+Mirror
+mean_r_mirror=-0.026675 d=-0.012833 [-0.036467, 0.011300] weekly_t_d=-1.0573 coin=-0.039508
+
+Random baseline (independent trades; no bias or trend_agree)
+seed requested achieved skipped_draws     mean_r   win_rate
+   0     15521    15518         16280  -0.045040   0.395734
+   1     15521    15519         16057  -0.027603   0.400284
+   2     15521    15520         16360  -0.029344   0.399807
+   3     15521    15521         16370  -0.027931   0.399845
+   4     15521    15516         16397  -0.009538   0.404743
+mean over seeds: mean_r=-0.027891 win_rate=0.400083
+
+Breakdown by pair
+pair          n      mean_r           d
+eurusd     1698   -0.041349   -0.016909
+gbpusd     1736   -0.061971   -0.045267
+usdjpy     1654   -0.063698   -0.032408
+audusd     1526   -0.061422   -0.028278
+usdcad     1449   -0.075488   -0.018978
+usdchf     1474   -0.037961    0.024648
+nzdusd     1425   -0.083286   -0.039569
+eurjpy     1631   -0.045680    0.003214
+gbpjpy     1596   -0.006307    0.027883
+eurgbp     1332   -0.050237    0.002011
+
+Breakdown by entry year
+year          n      mean_r           d
+2010       1653   -0.046888   -0.004068
+2011       1627   -0.061778   -0.059095
+2012       1514   -0.025571    0.040566
+2013       1605   -0.055619    0.014847
+2014       1464   -0.102733   -0.049285
+2015       1680   -0.037421   -0.027403
+2016       1648   -0.014215    0.023140
+2017       1535   -0.089888   -0.029328
+2018       1469   -0.046728   -0.028473
+2019       1326   -0.047560   -0.011051
+
+direction skill d = -0.012833 (t = -1.0573); exits and costs alone give -0.027891
+
+Metric conventions: trades/year uses elapsed calendar time with 365.25 days per year; skewness uses pandas sample skewness; losing streaks follow exit-time order, with pair and entry time breaking ties.

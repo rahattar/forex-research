@@ -133,3 +133,138 @@ Pending from earlier and never done: rewritten "prompt 7" (realistic time-varyin
 - Codex outputs should be reviewed against files on disk, not taken at face value (one Codex reply re-ran the wrong task).
 - macOS volume is case-insensitive: rename lowercase via a temporary name.
 - Keep the locked year locked until a single final run of a fully specified strategy.
+
+---
+
+## 9. Update of 2026-11-12 (work done after the handoff above)
+
+Read sections 1 to 8 first. This section replaces section 7 as the current state.
+
+### 9.1 What changed
+
+- The stock and portfolio work (options 2 to 4 of section 7) moved to its own repo,
+  github.com/rahattar/stock-research. Its summary.md is the entry point. Task 13 files stay here
+  unchanged. Do not continue stock work in this repo.
+- FX work continued here in three steps: task 15 (fitted forecast model, run), task 16
+  (month-end fix flow, drafted, not run) and the lab (built, seven runs).
+- The owner's position: forecasting is not finished for him. He wants to keep exploring,
+  including unusual ideas, and wants to talk an idea through before any code or prompt.
+
+### 9.2 Task 15: is direction predictable by a fitted model? (handoff/prereg_predictability.md)
+
+Status: results as reported by Codex. Not verified against files (section 9.5).
+
+- Two models forecast the next 1h, 4h and 24h move of each pair: ridge regression per pair (M1)
+  and gradient-boosted trees pooled over pairs (M2). 42 inputs: the pair's own history, the
+  dollar factor, and the previous day's moves in stocks, bonds, credit, gold, commodities, oil,
+  VIX and the US 2-year yield. Walk-forward, scored years 2014 to 2025, after spread and swap.
+- Units: one expected move (hourly volatility times sqrt of the horizon).
+
+| Model, horizon | Correlation | Direction skill d (t) | Mean cost | Net per trade | Verdict |
+|---|---|---|---|---|---|
+| M1, 1h | 0.007 | 0.0043 (2.7) | 0.150 | -0.146 | NO PREDICTABILITY |
+| M1, 4h | 0.010 | 0.0048 (1.5) | 0.075 | -0.070 | NO PREDICTABILITY |
+| M1, 24h | 0.006 | 0.0075 (0.9) | 0.037 | -0.030 | NO PREDICTABILITY |
+| M2, 1h | 0.012 | 0.0092 (4.7) | 0.150 | -0.141 | PREDICTABLE, BELOW COST |
+| M2, 4h | 0.007 | 0.0082 (2.1) | 0.075 | -0.067 | NO PREDICTABILITY |
+| M2, 24h | -0.006 | -0.0032 (-0.3) | 0.037 | -0.040 | NO PREDICTABILITY |
+
+- Break-even correlation: 0.19 (1h), 0.09 (4h), 0.05 (24h). Achieved: 0.012 at best.
+- In rough terms the best forecast is right 50.6% of the time; paying the spread needs about
+  60% at 1h, 55% at 4h and 52.5% at 24h.
+- The 1h effect (about 0.1 pip per trade against 1.6 pips of cost) is positive in 9 of 10 pairs
+  and 10 of 12 years and may be the bid-only spread effect flagged in advance.
+- Trading only the strongest forecasts was negative after costs in every cell. Other markets
+  added nothing provable. Clock inputs roughly doubled the linear model's gross skill, still
+  far below cost. The placebo leak check passed (t 0.2 and 1.2). 466 tests passed.
+- Conclusion: "forecast the trend from prices and other markets, then trade it" does not pay at
+  1h to 24h. The ask-price rerun named in the pre-registration was not done: it would not change
+  a trading decision.
+
+### 9.3 Why no time frame escapes (approximate)
+
+| Holding time | Hit rate needed to pay costs | Found |
+|---|---|---|
+| 15 min | about 70% | not tested; worse than 1h by construction |
+| 1h | 60% | 50.6% |
+| 4h | 55% | 50.5% |
+| 24h | 52.5% | 50.5% |
+| 1 to 2 weeks | about 51.5% (the lowest) | hand rules failed; 16 years can only prove 56% or more |
+| 1 to 12 months | about 52% (swap grows) | momentum and carry negative |
+
+### 9.4 The lab (handoff/lab_spec.md)
+
+- A test bench built by Codex: scripts/lab.py run ideas/x.toml runs one idea on all 10 pairs for
+  2010 to 2019 and prints a fixed scorecard (result per trade in R, the mirror, a random-entry
+  baseline with the same exits, shape, by pair and year). Every run is appended to
+  results/lab/ledger.csv.
+- 2020-01 to 2025-10 is sealed: one confirm run per idea, only with a pre-registration that
+  contains the idea file's sha256. Lab results are not claims.
+- Building blocks: levels (swings, previous day or week, round numbers, rolling extremes),
+  entries (break, bounce, 15-minute trigger, random), bias and lights (trend, hours, cost,
+  volatility state), stops (level, volatility, pips), targets (R multiple, level, none), stop
+  moves (break-even, trail by level, trail by volatility). Trendlines are left out on purpose.
+- Workflow: the owner describes an idea in words; Claude writes the TOML file.
+
+First seven runs (as reported; d is half the gap between the trade and its mirror):
+
+| Run | Idea | Mean R | d (t) | Win rate |
+|---|---|---|---|---|
+| 01 | Break of a 1h swing low or high, 1:1 at one expected 4h move | -0.086 | +0.002 (0.4) | 46% |
+| 02 | Break of the previous day's range | -0.084 | +0.004 (0.6) | 46% |
+| 03 | Break of a 100-pip round number | -0.065 | +0.016 (2.5) | 47% |
+| 04 | 15m trigger with the 1h trend, stop beyond the 1h swing, target 2.5R | -0.105 | -0.017 (-2.1) | 36% |
+| 05 | Run 04 with the stop moved to break-even after 1R | -0.111 | -0.015 (-2.2) | 30% |
+| 06 | Run 04 with the stop trailed behind 1h swings, no target | -0.156 | -0.006 (-0.6) | 22% |
+| 07 | Run 04 with two lights: 4h trend agrees, cost at most 0.10R | -0.052 | -0.013 (-1.1) | 40% |
+
+Reading
+- No "support that price does not recover from" at swings or the previous day's range.
+- Round numbers show a small continuation (9 of 10 pairs, 8 of 10 years), consistent with the
+  published order-clustering effect, at about a fifth of the cost. One t of 2.5 in seven runs is
+  weak evidence.
+- Mechanical stop moves changed the shape, not the mean (trailing made it worse).
+- The cost light halved the loss by halving the cost per trade; the trend light added nothing.
+- Open check: run 06 pays 0.16R of cost against 0.10R in run 04; probably re-entries with closer
+  stops after quick stop-outs, not verified.
+
+### 9.5 State of the files
+
+- At the time of this commit the code and results of task 15 and the lab exist only on the
+  owner's Mac (src/predict*.py, scripts/run_predict.py, tests/test_predict.py,
+  results/predict_*, src/lab_*.py, scripts/lab.py, tests/test_lab.py, results/lab/, ideas/, and
+  the root copies of the specifications). When they are pushed, the root copies are canonical.
+- handoff/ holds what Claude wrote and what Codex reported: the pre-registrations, the lab
+  specification, the three Codex prompts, the two simulation scripts, the seven idea files, and
+  reports_as_pasted/ (task 15 report and the first lab runs, as pasted into the chat).
+- The task 14 files (vol_target*) in the owner's forex folder belong to stock-research.
+- Verification still to do once the files are pushed: recompute task 15 from
+  results/predict_weekly.csv and predict_forecasts_24h.csv; read src/predict.py and the lab
+  code for lookahead; recompute the lab scorecards from the trades files.
+
+### 9.6 Next steps, in the order last agreed or proposed
+
+1. Lab, round numbers (proposed, not yet approved): levels every 50 pips; the same break with
+   stop and target one expected day away; the same break with the cost light; the opposite
+   trade (bounce off a round number). The skill would have to roughly triple to pay.
+2. Task 16, month-end hedging flow into the London 4 pm fix (handoff/prereg_month_end.md and
+   its prompt): ready to run, needs no downloads. Published effect; practitioners report it
+   faded. Predicted: NOT FOUND 50%, EXISTED, DECAYED 35%, ALIVE 15%.
+3. Drift after central-bank rate decisions (dates are in data/rates).
+4. Any idea the owner describes: write it as a lab file first.
+
+Closed: direction from price rules (tests 1 to 12), from a fitted model on prices and other
+markets (task 15), stops and targets as a source of edge (tests 5 and 10, lab runs 04 to 06).
+
+### 9.7 Practical notes added in this session
+
+- Python for new tasks: ~/fxenv/bin/python, a venv that inherits the pix2pixpolar-dev packages
+  and adds scikit-learn (numpy 2.4.6, pandas 3.0.4, scikit-learn 1.9.1). 534 tests pass.
+- The Codex sandbox has no network. The owner runs downloads himself (yfinance in a throwaway
+  venv, FRED by curl), then tells Codex the files are present.
+- Codex stops and asks when a specification is ambiguous. Answers are appended to the
+  specification as a dated "Clarifications" section before it continues.
+- Thresholds are set by simulation on synthetic data before a run, and predictions are written
+  into the pre-registration.
+- A failed data gate was amended once (task 14, stock repo) with a derivation and a one-shot
+  rule; treat any amendment after a failure with suspicion and record it as a deviation.

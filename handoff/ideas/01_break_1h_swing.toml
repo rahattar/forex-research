@@ -1,0 +1,15 @@
+name = "01_break_1h_swing"
+description = "Idea 1: when a 1h swing low or high is broken, does price keep going? Sell the break of support, buy the break of resistance, stop and target one expected 4h move away."
+max_hold_hours = 48
+[entry]
+type = "break"
+direction = "with"
+sides = "both"
+level = { type = "swing", timeframe = "1h", k = 3 }
+[stop]
+type = "vol"
+multiple = 1.0
+hours = 4
+[target]
+type = "r"
+multiple = 1.0
