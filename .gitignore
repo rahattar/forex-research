@@ -1,0 +1,12 @@
+__pycache__/
+.pytest_cache/
+*.pyc
+download/
+fresh/
+hist/
+data/etf/
+data/fred/*.csv
+!data/fred/boj_policy_rate.csv
+results/fresh_signal_trades.csv
+results/multi_asset_returns.csv
+.DS_Store
